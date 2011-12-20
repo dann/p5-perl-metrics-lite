@@ -79,10 +79,10 @@ sub _init {
         push @subs,     @{ $file->subs };
     }
 
-    $_FILE_STATS{$self}    = \@file_stats;
-    $_FILES{$self}         = \@all_files;
-    $_MAIN{$self}          = \%main_stats;
-    $_SUBS{$self}          = \@subs;
+    $_FILE_STATS{$self} = \@file_stats;
+    $_FILES{$self}      = \@all_files;
+    $_MAIN{$self}       = \%main_stats;
+    $_SUBS{$self}       = \@subs;
     return 1;
 }
 
@@ -94,8 +94,6 @@ sub is_ref {
     return if ( $ref ne $type );
     return $ref;
 }
-
-
 
 1;
 __END__
