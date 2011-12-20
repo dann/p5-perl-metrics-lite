@@ -1,6 +1,6 @@
 # NAME
 
-Perl::Metrics::Lite -
+Perl::Metrics::Lite - Pluggable Perl Code Metrics System
 
 # SYNOPSIS
 
@@ -8,15 +8,13 @@ Perl::Metrics::Lite -
 
 # DESCRIPTION
 
-Perl::Metrics::Lite is
-
-
+Perl::Metrics::Lite is the pluggable perl code metrics system.
 
 # SOURCE AVAILABILITY
 
 This source is in Github:
 
-    http://github.com/dann/
+    http://github.com/dann/p5-perl-metrics-lite
 
 # CONTRIBUTORS
 
@@ -26,7 +24,7 @@ Many thanks to:
 
 # AUTHOR
 
-Dann <techmemo@gmail.com>
+Dann <techmemo{at}gmail.com>
 
 # SEE ALSO
 

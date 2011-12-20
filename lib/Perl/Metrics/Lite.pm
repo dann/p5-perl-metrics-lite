@@ -124,7 +124,7 @@ Perl::Metrics::Lite - Pluggable Perl Code Metrics System
 
 =head1 DESCRIPTION
 
-Perl::Metrics::Lite is
+Perl::Metrics::Lite is the pluggable perl code metrics system.
 
 =head1 SOURCE AVAILABILITY
 
