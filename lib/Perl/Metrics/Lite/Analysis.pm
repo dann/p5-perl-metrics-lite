@@ -60,18 +60,6 @@ sub sub_count {
     return scalar @{ $self->subs };
 }
 
-sub _get_min_max_values {
-    my $nodes    = shift;
-    my $hash_key = shift;
-    if ( !is_ref( $nodes, 'ARRAY' ) ) {
-        confess("Didn't get an ARRAY ref, got '$nodes' instead");
-    }
-    my @sorted_values = sort _numerically map { $_->{$hash_key} } @{$nodes};
-    my $min           = $sorted_values[0];
-    my $max           = $sorted_values[-1];
-    return ( $min, $max, \@sorted_values );
-}
-
 sub _numerically {
     return $a <=> $b;
 }
