@@ -7,7 +7,9 @@ sub init {
 
 sub measure {
     my ( $self, $context, $sub ) = @_;
-    my $sub_length = $context->get_node_length($sub);
+
+    my $sub_length
+        = Perl::Metrics::Lite::Analysis::Util::get_node_length($sub);
     return $sub_length;
 }
 

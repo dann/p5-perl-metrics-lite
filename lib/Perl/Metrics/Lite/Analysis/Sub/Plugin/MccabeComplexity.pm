@@ -72,7 +72,7 @@ sub measure {
     my ( $class, $context, $elem ) = @_;
 
     my $complexity_count = 0;
-    if ( $context->get_node_length($elem) == 0 ) {
+    if ( Perl::Metrics::Lite::Analysis::Util::get_node_length($elem) == 0 ) {
         return $complexity_count;
     }
 
