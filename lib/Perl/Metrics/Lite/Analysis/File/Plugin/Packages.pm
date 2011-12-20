@@ -11,7 +11,7 @@ sub measure {
 
     return scalar @unique_packages
         if (
-        !Perl::Metrics::Lite::Analysis::is_ref( $found_packages, 'ARRAY' ) );
+        !Perl::Metrics::Lite::Analysis::Util::is_ref( $found_packages, 'ARRAY' ) );
 
     my %seen_packages = ();
 

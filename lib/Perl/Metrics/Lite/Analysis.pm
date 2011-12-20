@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use Carp qw(confess);
+use Perl::Metrics::Lite::Analysis::Util;
 
 our $VERSION = '0.01';
 
@@ -14,7 +15,7 @@ my %_SUBS          = ();
 
 sub new {
     my ( $class, $analysis_data ) = @_;
-    if ( !is_ref( $analysis_data, 'ARRAY' ) ) {
+    if ( !Perl::Metrics::Lite::Analysis::Util::is_ref( $analysis_data, 'ARRAY' ) ) {
         confess 'Did not supply an arryref of analysis data.';
     }
     my $self = {};
@@ -84,15 +85,6 @@ sub _init {
     $_MAIN{$self}       = \%main_stats;
     $_SUBS{$self}       = \@subs;
     return 1;
-}
-
-sub is_ref {
-    my $thing = shift;
-    my $type  = shift;
-    my $ref   = ref $thing;
-    return if !$ref;
-    return if ( $ref ne $type );
-    return $ref;
 }
 
 1;
@@ -198,18 +190,6 @@ Each hashref has the structure:
 
 How many subroutines found.
 
-
-=head1 STATIC PACKAGE SUBROUTINES
-
-Utility subs used internally, but no harm in exposing them for now.
-Call these with a fully-qualified package name, e.g.
-
-  Perl::Metrics::Lite::Analysis::is_ref($thing,'ARRAY')
-
-=head2 is_ref
-
-Takes a I<thing> and a I<type>. Returns true is I<thing> is a reference
-of type I<type>, otherwise returns false.
 
 =head1 BUGS AND LIMITATIONS
 

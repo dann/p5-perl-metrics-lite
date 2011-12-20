@@ -5,6 +5,7 @@ use FindBin qw($Bin);
 use lib "$Bin/lib";
 use Perl::Metrics::Lite;
 use Perl::Metrics::Lite::TestData;
+use Perl::Metrics::Lite::Analysis::Util;
 use Readonly;
 use Test::More tests => 2;
 

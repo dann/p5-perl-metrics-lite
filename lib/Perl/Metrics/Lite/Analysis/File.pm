@@ -153,7 +153,7 @@ sub analyze_subs {
     my $found_subs = shift;
 
     return []
-        if ( !Perl::Metrics::Lite::Analysis::is_ref( $found_subs, 'ARRAY' ) );
+        if ( !Perl::Metrics::Lite::Analysis::Util::is_ref( $found_subs, 'ARRAY' ) );
 
     my @subs = ();
     foreach my $sub ( @{$found_subs} ) {

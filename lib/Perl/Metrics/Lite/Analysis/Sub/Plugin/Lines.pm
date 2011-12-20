@@ -14,3 +14,5 @@ sub measure {
 }
 
 1;
+
+__END__

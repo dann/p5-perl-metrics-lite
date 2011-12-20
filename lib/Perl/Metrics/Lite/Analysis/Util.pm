@@ -41,7 +41,7 @@ sub get_packages {
 
     return \@unique_packages
         if (
-        !Perl::Metrics::Lite::Analysis::is_ref( $found_packages, 'ARRAY' ) );
+        !Perl::Metrics::Lite::Analysis::Util::is_ref( $found_packages, 'ARRAY' ) );
 
     my %seen_packages = ();
 
@@ -66,4 +66,35 @@ sub prune_non_code_lines {
     return $document;
 }
 
+sub is_ref {
+    my $thing = shift;
+    my $type  = shift;
+    my $ref   = ref $thing;
+    return if !$ref;
+    return if ( $ref ne $type );
+    return $ref;
+}
+
 1;
+
+__END__
+
+=encoding utf-8
+
+=head1 NAME
+
+Perl::Metrics::Lite::Analysis::Util - 
+
+=head1 STATIC PACKAGE SUBROUTINES
+
+Utility subs used internally, but no harm in exposing them for now.
+Call these with a fully-qualified package name, e.g.
+
+  Perl::Metrics::Lite::Analysis::Util::is_ref($thing,'ARRAY')
+
+=head2 is_ref
+
+Takes a I<thing> and a I<type>. Returns true is I<thing> is a reference
+of type I<type>, otherwise returns false.
+
+=cut

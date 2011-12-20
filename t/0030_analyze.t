@@ -239,15 +239,15 @@ sub test_new {
 
 sub test_is_ref {
     my $not_a_ref = 'hello';
-    is( Perl::Metrics::Lite::Analysis::is_ref( $not_a_ref, 'ARRAY' ),
+    is( Perl::Metrics::Lite::Analysis::Util::is_ref( $not_a_ref, 'ARRAY' ),
         undef, 'is_ref() returns undef on a string.' );
     my $array_ref = [];
-    ok( Perl::Metrics::Lite::Analysis::is_ref( $array_ref, 'ARRAY' ),
+    ok( Perl::Metrics::Lite::Analysis::Util::is_ref( $array_ref, 'ARRAY' ),
         'is_ref() returns true for ARRAY ref.' );
     my $hash_ref = {};
-    ok( Perl::Metrics::Lite::Analysis::is_ref( $hash_ref, 'HASH' ),
+    ok( Perl::Metrics::Lite::Analysis::Util::is_ref( $hash_ref, 'HASH' ),
         'is_ref() returns true for HASH ref.' );
-    is( Perl::Metrics::Lite::Analysis::is_ref( $array_ref, 'HASH' ),
+    is( Perl::Metrics::Lite::Analysis::Util::is_ref( $array_ref, 'HASH' ),
         undef, 'is_ref() knows an array ref is not a HASH' );
     return 1;
 }

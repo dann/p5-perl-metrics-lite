@@ -7,7 +7,6 @@ use English qw(-no_match_vars);
 use File::Basename qw(fileparse);
 use File::Find qw(find);
 use IO::File;
-use PPI;
 use Perl::Metrics::Lite::Analysis;
 use Perl::Metrics::Lite::Analysis::File;
 use Readonly;
