@@ -60,10 +60,6 @@ sub sub_count {
     return scalar @{ $self->subs };
 }
 
-sub _numerically {
-    return $a <=> $b;
-}
-
 sub _init {
     my ( $self, $file_objects ) = @_;
     $_ANALYSIS_DATA{$self} = $file_objects;
