@@ -8,7 +8,7 @@ Readonly::Scalar my $LAST_CHARACTER => -1;
 
 sub get_node_length {
     my $node = shift;
-    my $eval_result = eval { $node = _prune_non_code_lines($node); };
+    my $eval_result = eval { $node = prune_non_code_lines($node); };
     return 0 if not $eval_result;
     return 0 if ( !defined $node );
     my $string = $node->content;
@@ -29,7 +29,6 @@ sub get_node_length {
             $line_count++;
         }
     }
-
     return $line_count;
 }
 
@@ -52,6 +51,18 @@ sub get_packages {
     @unique_packages = sort keys %seen_packages;
 
     return \@unique_packages;
+}
+
+sub prune_non_code_lines {
+    my $document = shift;
+    if ( !defined $document ) {
+        Carp::confess('Did not supply a document!');
+    }
+    $document->prune('PPI::Token::Comment');
+    $document->prune('PPI::Token::Pod');
+    $document->prune('PPI::Token::End');
+
+    return $document;
 }
 
 1;

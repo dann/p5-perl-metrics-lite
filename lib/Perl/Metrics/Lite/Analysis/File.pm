@@ -8,6 +8,7 @@ use Perl::Metrics::Lite::Analysis;
 use PPI;
 use PPI::Document;
 use Perl::Metrics::Lite::Analysis::Util;
+use Perl::Metrics::Lite::Analysis::DocumentFactory;
 
 use Module::Pluggable
     require     => 1,
@@ -42,7 +43,7 @@ sub _init {
 
     my $path = $self->path();
 
-    my $document = $self->_make_normalized_document($path);
+    my $document = Perl::Metrics::Lite::Analysis::DocumentFactory->create_normalized_document($path);
     if ( !defined $document ) {
         cluck "Could not make a PPI document from '$path'";
         return;
@@ -61,56 +62,6 @@ sub _init {
     $_LINES{$self}    = Perl::Metrics::Lite::Analysis::Util::get_node_length($document);
 
     return $self;
-}
-
-sub _make_normalized_document {
-    my ($self, $path) = @_;
-
-    my $document;
-    if ( ref $path ) {
-        if ( ref $path eq 'SCALAR' ) {
-            $document = PPI::Document->new($path);
-        }
-        else {
-            $document = $path;
-        }
-    }
-    else {
-        if ( !-r $path ) {
-            Carp::confess "Path '$path' is missing or not readable!";
-        }
-        $document = _create_ppi_document($path);
-    }
-    $document = _make_pruned_document($document);
-
-    $document;
-}
-
-sub _create_ppi_document {
-    my $path = shift;
-    my $document;
-    if ( -s $path ) {
-        $document = PPI::Document->new($path);
-    }
-    else {
-
-        # The file is empty. Create a PPI document with a single whitespace
-        # chararacter. This makes sure that the PPI tokens() method
-        # returns something, so we avoid a warning from
-        # PPI::Document::index_locations() which expects tokens() to return
-        # something other than undef.
-        my $one_whitespace_character = q{ };
-        $document = PPI::Document->new( \$one_whitespace_character );
-    }
-    return $document;
-}
-
-sub _make_pruned_document {
-    my $document = shift;
-    $document = _prune_non_code_lines($document);
-    $document->index_locations();
-    $document->readonly(1);
-    return $document;
 }
 
 sub all_counts {
@@ -233,18 +184,6 @@ sub add_basic_sub_info {
     my ( $self, $sub, $metrics ) = @_;
     $metrics->{path} = $self->path;
     $metrics->{name} = $sub->name;
-}
-
-sub _prune_non_code_lines {
-    my $document = shift;
-    if ( !defined $document ) {
-        Carp::confess('Did not supply a document!');
-    }
-    $document->prune('PPI::Token::Comment');
-    $document->prune('PPI::Token::Pod');
-    $document->prune('PPI::Token::End');
-
-    return $document;
 }
 
 1;
