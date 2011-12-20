@@ -7,7 +7,7 @@ use FindBin qw($Bin);
 use lib "$Bin/lib";
 use Perl::Metrics::Lite::TestData;
 use Readonly;
-use Test::More tests => 37;
+use Test::More tests => 30;
 
 Readonly::Scalar my $TEST_DIRECTORY => "$Bin/test_files";
 Readonly::Scalar my $EMPTY_STRING   => q{};
@@ -25,8 +25,6 @@ test_analyze_text_from_scalar_ref();
 test_analyze_files();
 test_analysis();
 test_is_ref();
-test_get_min_max_values();
-test_get_mean_median_std_dev();
 
 exit;
 
@@ -51,7 +49,6 @@ sub test_analyze_one_file {
         = $test_data->{'no_packages_nor_subs'};
     my $analysis = Perl::Metrics::Lite::Analysis::File->new(
         path => $no_package_no_sub_expected_result->{'path'} );
-    is_deeply( $analysis->packages, [], 'Analysis of file with no packages.' );
     is_deeply( $analysis->subs,     [], 'Analysis of file with no subs.' );
 
     my $has_package_no_subs_expected_result
@@ -182,12 +179,6 @@ sub test_analysis {
     my $analyzer         = Perl::Metrics::Lite->new;
     my $analysis         = $analyzer->analyze_files($TEST_DIRECTORY);
 
-    my $expected_lines;
-    map { $expected_lines += $test_data->{$_}->{lines} }
-        keys %{$test_data};
-    is( $analysis->lines, $expected_lines,
-        'analysis->lines() returns correct number' );
-
     my @expected_files = (
         $test_data->{'Module.pm'}->{path},
         $test_data->{'empty_file.pl'}->{path},
@@ -200,18 +191,6 @@ sub test_analysis {
     is( $analysis->file_count,
         scalar @expected_files,
         'file_count() returns correct number.'
-    );
-
-    my @expected_packages = (
-        'Perl::Metrics::Lite::Test::Module',
-        'Perl::Metrics::Lite::Test::Module::InnerClass',
-        'Hello::Dolly',
-    );
-    is_deeply( $analysis->packages, \@expected_packages,
-        'analysis->packages() returns expected list.' );
-    is( $analysis->package_count,
-        scalar @expected_packages,
-        'analysis->package_count returns correct number.'
     );
 
     my @expected_subs = ();
@@ -273,23 +252,5 @@ sub test_is_ref {
     return 1;
 }
 
-sub test_get_min_max_values {
-    eval { Perl::Metrics::Lite::Analysis::_get_min_max_values('some-string') };
-    like(
-        $EVAL_ERROR,
-        qr/Didn't get an ARRAY ref/,
-        '_get_min_max_values() throws exception when no array ref passed.'
-    );
-    return 1;
-}
 
-sub test_get_mean_median_std_dev {
-    my @empty_array = ();
-    is( Perl::Metrics::Lite::Analysis::_get_mean_median_std_dev(
-            \@empty_array
-        ),
-        undef,
-        '_get_mean_median_std_dev() returns undef when passed empty array.'
-    );
-    return 1;
-}
+

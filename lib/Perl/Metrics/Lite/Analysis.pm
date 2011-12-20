@@ -5,20 +5,14 @@ use warnings;
 use Carp qw(confess);
 use English qw(-no_match_vars);
 use Readonly;
-use Statistics::Basic::StdDev;
-use Statistics::Basic::Mean;
-use Statistics::Basic::Median;
 
 our $VERSION = '0.01';
 
 my %_ANALYSIS_DATA = ();
 my %_FILES         = ();
 my %_FILE_STATS    = ();
-my %_LINES         = ();
 my %_MAIN          = ();
-my %_PACKAGES      = ();
 my %_SUBS          = ();
-my %_SUMMARY_STATS = ();
 
 sub new {
     my ( $class, $analysis_data ) = @_;
@@ -46,21 +40,6 @@ sub file_count {
     return scalar @{ $self->files };
 }
 
-sub lines {
-    my $self = shift;
-    return $_LINES{$self};
-}
-
-sub packages {
-    my ($self) = @_;
-    return $_PACKAGES{$self};
-}
-
-sub package_count {
-    my $self = shift;
-    return scalar @{ $self->packages };
-}
-
 sub file_stats {
     my $self = shift;
     return $_FILE_STATS{$self};
@@ -69,11 +48,6 @@ sub file_stats {
 sub main_stats {
     my $self = shift;
     return $_MAIN{$self};
-}
-
-sub summary_stats {
-    my $self = shift;
-    return $_SUMMARY_STATS{$self};
 }
 
 sub subs {
@@ -126,48 +100,8 @@ sub _init {
     $_FILE_STATS{$self}    = \@file_stats;
     $_FILES{$self}         = \@all_files;
     $_MAIN{$self}          = \%main_stats;
-    $_PACKAGES{$self}      = \@packages;
-    $_LINES{$self}         = $lines;
     $_SUBS{$self}          = \@subs;
-    $_SUMMARY_STATS{$self} = $self->_make_summary_stats();
     return 1;
-}
-
-sub _make_summary_stats {
-    my $self          = shift;
-    my $summary_stats = {
-        sub_length      => $self->_summary_stats_sub_length,
-        sub_complexity  => $self->_summary_stats_sub_complexity,
-    };
-    return $summary_stats;
-}
-
-sub _summary_stats_sub_length {
-    my $self = shift;
-
-    my %sub_length = ();
-
-    @sub_length{ 'min', 'max', 'sorted_values' }
-        = _get_min_max_values( $self->subs, 'lines' );
-
-    @sub_length{ 'mean', 'median', 'standard_deviation' }
-        = _get_mean_median_std_dev( $sub_length{sorted_values} );
-
-    return \%sub_length;
-}
-
-sub _summary_stats_sub_complexity {
-    my $self = shift;
-
-    my %sub_complexity = ();
-
-    @sub_complexity{ 'min', 'max', 'sorted_values' }
-        = _get_min_max_values( $self->subs, 'mccabe_complexity' );
-
-    @sub_complexity{ 'mean', 'median', 'standard_deviation' }
-        = _get_mean_median_std_dev( $sub_complexity{sorted_values} );
-
-    return \%sub_complexity;
 }
 
 sub is_ref {
@@ -179,22 +113,7 @@ sub is_ref {
     return $ref;
 }
 
-sub _get_mean_median_std_dev {
-    my $values = shift;
-    my $count  = scalar @{$values};
-    if ( $count < 1 ) {
-        return;
-    }
-    my $mean = sprintf '%.2f', Statistics::Basic::Mean->new($values)->query;
 
-    my $median = sprintf '%.2f',
-        Statistics::Basic::Median->new($values)->query;
-
-    my $standard_deviation = sprintf '%.2f',
-        Statistics::Basic::StdDev->new( $values, $count )->query;
-
-    return ( $mean, $median, $standard_deviation );
-}
 
 1;
 __END__
@@ -379,6 +298,4 @@ L<Perl::Metrics>
 L<Perl::Metrics::Simple>
 
 =cut
-
-
 

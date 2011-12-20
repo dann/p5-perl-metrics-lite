@@ -23,9 +23,6 @@ requires(
     'IO::File'                  => 1.14,
     'Readonly'                  => 1.03,
     'PPI'                       => 1.113,
-    'Statistics::Basic::StdDev' => 0,
-    'Statistics::Basic::Mean'   => 0,
-    'Statistics::Basic::Median' => 0,
     'Pod::Usage'                => 0,
 );
 test_requires( 'Test::LoadAllModules' => 0.03 );
