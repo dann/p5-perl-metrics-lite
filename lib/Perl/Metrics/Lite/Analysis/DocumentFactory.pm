@@ -1,7 +1,9 @@
 package Perl::Metrics::Lite::Analysis::DocumentFactory;
 use strict;
 use warnings;
+use PPI;
 use PPI::Document;
+use Perl::Metrics::Lite::Analysis::Util;
 
 use Carp qw(confess);
 

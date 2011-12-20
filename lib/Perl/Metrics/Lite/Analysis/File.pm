@@ -3,10 +3,7 @@ use strict;
 use warnings;
 
 use Carp qw(cluck confess);
-use English qw(-no_match_vars);
 use Perl::Metrics::Lite::Analysis;
-use PPI;
-use PPI::Document;
 use Perl::Metrics::Lite::Analysis::Util;
 use Perl::Metrics::Lite::Analysis::DocumentFactory;
 

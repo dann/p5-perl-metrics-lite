@@ -1,4 +1,5 @@
 package Perl::Metrics::Lite::Analysis::Util;
+use English qw(-no_match_vars);
 use Readonly;
 
 Readonly::Scalar my $ALL_NEWLINES_REGEX =>

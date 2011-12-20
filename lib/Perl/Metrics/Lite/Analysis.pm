@@ -3,8 +3,6 @@ use strict;
 use warnings;
 
 use Carp qw(confess);
-use English qw(-no_match_vars);
-use Readonly;
 
 our $VERSION = '0.01';
 
