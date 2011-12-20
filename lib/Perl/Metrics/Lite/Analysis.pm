@@ -218,37 +218,6 @@ Each hashref has the structure:
 
 How many subroutines found.
 
-=head2 summary_stats
-
-Returns a data structure of the summary counts for all the files examined:
-
-    {
-        sub_length      => {
-            min           => $min_sub_length,
-            max           => $max_sub_length,
-            sorted_values => \@lengths_of_all_subs,
-            mean          => $average_sub_length,
-            median        => $median_sub_length,
-            standard_deviation => $std_dev_for_sub_lengths,
-         },
-        sub_complexity  => {
-            min           => $min_sub_complexity,
-            max           => $max_sub_complexity,
-            sorted_values => \@complexities_of_all_subs,
-            mean          => $average_sub_complexity,
-            median        => $median_sub_complexity,
-            standard_deviation => $std_dev_for_sub_complexity,
-        },
-        main_complexity => {
-            min           => $min_main_complexity,
-            max           => $max_main_complexity,
-            sorted_values => \@complexities_of_all_subs,
-            mean          => $average_main_complexity,
-            median        => $median_main_complexity,
-            standard_deviation => $std_dev_for_main_complexity,
-        },
-    }
-
 
 =head1 STATIC PACKAGE SUBROUTINES
 
