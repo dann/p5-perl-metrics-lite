@@ -116,8 +116,6 @@ sub _init {
     foreach my $file ( @{ $self->data() } ) {
         $lines += $file->lines();
         $main_stats{lines} += $file->main_stats()->{lines};
-#        $main_stats{mccabe_complexity}
-#            += $file->main_stats()->{mccabe_complexity};
         push @all_files, $file->path();
         push @file_stats,
             { path => $file->path, main_stats => $file->main_stats };
