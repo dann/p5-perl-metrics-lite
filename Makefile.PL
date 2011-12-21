@@ -28,7 +28,7 @@ requires(
 );
 test_requires(
     'Test::More'           => 0.94,
-    'Test::LoadAllModules' => 0.03
+    'Test::LoadAllModules' => 0.021
 );
 auto_include;
 WriteAll;
