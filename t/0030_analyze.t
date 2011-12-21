@@ -7,7 +7,7 @@ use FindBin qw($Bin);
 use lib "$Bin/lib";
 use Perl::Metrics::Lite::TestData;
 use Readonly;
-use Test::More tests => 30;
+use Test::More;
 
 Readonly::Scalar my $TEST_DIRECTORY => "$Bin/test_files";
 Readonly::Scalar my $EMPTY_STRING   => q{};
@@ -18,15 +18,6 @@ BEGIN {
     use_ok('Perl::Metrics::Lite::Analysis::File')
         || BAIL_OUT('Could not compile Perl::Metrics::Lite::Analysis::File');
 }
-
-test_new();
-test_analyze_one_file();
-test_analyze_text_from_scalar_ref();
-test_analyze_files();
-test_analysis();
-test_is_ref();
-
-exit;
 
 sub set_up {
     my $test_data_object = Perl::Metrics::Lite::TestData->new(
@@ -42,14 +33,14 @@ sub slurp {
     return \$contents;
 }
 
-sub test_analyze_one_file {
+subtest "test_analyze_one_file" => sub {
     my $test_data_object = set_up();
     my $test_data        = $test_data_object->get_test_data;
     my $no_package_no_sub_expected_result
         = $test_data->{'no_packages_nor_subs'};
     my $analysis = Perl::Metrics::Lite::Analysis::File->new(
         path => $no_package_no_sub_expected_result->{'path'} );
-    is_deeply( $analysis->subs,     [], 'Analysis of file with no subs.' );
+    is_deeply( $analysis->subs, [], 'Analysis of file with no subs.' );
 
     my $has_package_no_subs_expected_result
         = $test_data->{'package_no_subs.pl'};
@@ -77,9 +68,10 @@ sub test_analyze_one_file {
         $has_subs_and_package_expected_result,
         'analyze_one_file() with packages and subs.'
     );
-}
+    done_testing;
+};
 
-sub test_analyze_text_from_scalar_ref {
+subtest "test_analyze_text_from_scalar_ref" => sub {
     my $test_data_object = set_up();
     my $test_data        = $test_data_object->get_test_data;
     my $no_package_no_sub_expected_result
@@ -89,8 +81,9 @@ sub test_analyze_text_from_scalar_ref {
 
     my $analysis
         = Perl::Metrics::Lite::Analysis::File->new( path => $ref_to_text );
-    is_deeply( $analysis->packages, [], 'Analysis of file with no packages.' );
-    is_deeply( $analysis->subs,     [], 'Analysis of file with no subs.' );
+    is_deeply( $analysis->packages, [],
+        'Analysis of file with no packages.' );
+    is_deeply( $analysis->subs, [], 'Analysis of file with no subs.' );
 
     my $has_package_no_subs_expected_result
         = $test_data->{'package_no_subs.pl'};
@@ -133,9 +126,10 @@ sub test_analyze_text_from_scalar_ref {
         $has_subs_and_package_expected_result,
         'analyze_one_file() with packages and subs.'
     );
-}
+    done_testing;
+};
 
-sub test_analyze_files {
+subtest "test_analyze_files" => sub {
     my $test_data_object = set_up();
     my $test_data        = $test_data_object->get_test_data;
     my $analyzer         = Perl::Metrics::Lite->new();
@@ -171,9 +165,10 @@ sub test_analyze_files {
         is_deeply( $analysis->data->[$i],
             $expected[$i], 'Got expected results for test file.' );
     }
-}
+    done_testing;
+};
 
-sub test_analysis {
+subtest "test_analysis" => sub {
     my $test_data_object = set_up();
     my $test_data        = $test_data_object->get_test_data;
     my $analyzer         = Perl::Metrics::Lite->new;
@@ -212,10 +207,11 @@ sub test_analysis {
     my $expected_file_stats = $test_data_object->get_file_stats;
     is_deeply( $analysis->file_stats, $expected_file_stats,
         'analysis->file_stats returns expected data.' );
-    return 1;
-}
 
-sub test_new {
+    done_testing;
+};
+
+subtest "test_new" => sub {
     eval { my $analysis = Perl::Metrics::Lite::Analysis->new() };
     like(
         $EVAL_ERROR,
@@ -223,10 +219,12 @@ sub test_new {
         'new() throws exception when no data supplied.'
     );
 
-    my $test_path_1 = File::Spec->join( $TEST_DIRECTORY, 'package_no_subs.pl' );
+    my $test_path_1
+        = File::Spec->join( $TEST_DIRECTORY, 'package_no_subs.pl' );
     my $file_object_1
         = Perl::Metrics::Lite::Analysis::File->new( path => $test_path_1 );
-    my $test_path_2 = File::Spec->join( $TEST_DIRECTORY, 'subs_no_package.pl' );
+    my $test_path_2
+        = File::Spec->join( $TEST_DIRECTORY, 'subs_no_package.pl' );
     my $file_object_2
         = Perl::Metrics::Lite::Analysis::File->new( path => $test_path_2 );
     my $analysis = Perl::Metrics::Lite::Analysis->new(
@@ -234,10 +232,10 @@ sub test_new {
 
     isa_ok( $analysis, 'Perl::Metrics::Lite::Analysis' );
 
-    return 1;
-}
+    done_testing;
+};
 
-sub test_is_ref {
+subtest "test_is_ref" => sub {
     my $not_a_ref = 'hello';
     is( Perl::Metrics::Lite::Analysis::Util::is_ref( $not_a_ref, 'ARRAY' ),
         undef, 'is_ref() returns undef on a string.' );
@@ -249,8 +247,7 @@ sub test_is_ref {
         'is_ref() returns true for HASH ref.' );
     is( Perl::Metrics::Lite::Analysis::Util::is_ref( $array_ref, 'HASH' ),
         undef, 'is_ref() knows an array ref is not a HASH' );
-    return 1;
-}
+    done_testing;
+};
 
-
-
+done_testing;

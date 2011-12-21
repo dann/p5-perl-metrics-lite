@@ -7,11 +7,12 @@ use Perl::Metrics::Lite;
 use Perl::Metrics::Lite::TestData;
 use Perl::Metrics::Lite::Analysis::Util;
 use Readonly;
-use Test::More tests => 2;
+use Test::More;
 
 Readonly::Scalar my $TEST_DIRECTORY => "$Bin/test_files";
 
 test_main_stats();
+done_testing;
 
 exit;
 

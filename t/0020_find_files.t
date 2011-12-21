@@ -3,22 +3,17 @@ use warnings;
 use English qw(-no_match_vars);
 use FindBin qw($Bin);
 use Readonly;
-use Test::More tests => 6;
+use Test::More;
 
 Readonly::Scalar my $TEST_DIRECTORY => "$Bin/test_files";
 Readonly::Scalar my $EMPTY_STRING   => q{};
 BEGIN { use_ok('Perl::Metrics::Lite'); }
 
-test_find_files();
-test_is_in_skip_list();
-
-exit;
-
 sub set_up {
     my $analyzer = Perl::Metrics::Lite->new();
 }
 
-sub test_is_in_skip_list {
+subtest "is_in_skip_list" => sub {
     my $analyzer = set_up();
     my @paths_to_skip = qw(
         /foo/bar/.svn/hello.pl
@@ -28,9 +23,10 @@ sub test_is_in_skip_list {
     foreach my $path_to_skip ( @paths_to_skip ) {
         ok($analyzer->should_be_skipped($path_to_skip), "is_in_skip_list($path_to_skip)");
     }
-}
+    done_testing;
+};
 
-sub test_find_files {
+subtest "find_files" => sub {
     my $analyzer = set_up();
     eval { $analyzer->find_files('non/existent/path'); };
     isnt( $EVAL_ERROR, $EMPTY_STRING,
@@ -46,4 +42,8 @@ sub test_find_files {
     my $found_files = $analyzer->find_files($TEST_DIRECTORY);
     is_deeply( $found_files, $expected_list,
         'find_files() find expected files' );
-}
+    done_testing;
+};
+
+
+done_testing;

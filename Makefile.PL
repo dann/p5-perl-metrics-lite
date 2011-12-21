@@ -1,5 +1,6 @@
-sub readme_markdown_from  {
-   warn "You need to install Module::Install::ReadmeMarkdownFromPod  to generate README";
+sub readme_markdown_from {
+    warn
+        "You need to install Module::Install::ReadmeMarkdownFromPod  to generate README";
 }
 
 sub author_requires {
@@ -16,15 +17,18 @@ all_from 'lib/Perl/Metrics/Lite.pm';
 readme_markdown_from 'lib/Perl/Metrics/Lite.pm';
 
 requires(
-    'Carp'                      => 0,
-    'File::Basename'            => 0,
-    'File::Find'                => 1.01,
-    'File::Spec'                => 0,
-    'IO::File'                  => 1.14,
-    'Readonly'                  => 1.03,
-    'PPI'                       => 1.113,
-    'Pod::Usage'                => 0,
+    'Carp'           => 0,
+    'File::Basename' => 0,
+    'File::Find'     => 1.01,
+    'File::Spec'     => 0,
+    'IO::File'       => 1.14,
+    'Readonly'       => 1.03,
+    'PPI'            => 1.113,
+    'Pod::Usage'     => 0,
 );
-test_requires( 'Test::LoadAllModules' => 0.03 );
+test_requires(
+    'Test::More'           => 0.94,
+    'Test::LoadAllModules' => 0.03
+);
 auto_include;
 WriteAll;
