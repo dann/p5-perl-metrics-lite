@@ -8,8 +8,7 @@ Perl::Metrics::Lite - Pluggable Perl Code Metrics System
 
 # DESCRIPTION
 
-__Perl::Metrics::Lite< is the pluggable perl code metrics system.
-__
+__Perl::Metrics::Lite__ is the pluggable perl code metrics system.
 
 __Perl::Metrics::Lite__ provides just enough methods to run static analysis
 of one or many Perl files and obtain a few metrics.

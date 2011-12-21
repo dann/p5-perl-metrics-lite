@@ -123,7 +123,7 @@ Perl::Metrics::Lite - Pluggable Perl Code Metrics System
 
 =head1 DESCRIPTION
 
-B<Perl::Metrics::Lite< is the pluggable perl code metrics system.
+B<Perl::Metrics::Lite> is the pluggable perl code metrics system.
 
 B<Perl::Metrics::Lite> provides just enough methods to run static analysis
 of one or many Perl files and obtain a few metrics.
