@@ -94,6 +94,7 @@ sub measure_file_metrics {
     my $metrics = {};
     foreach my $plugin ( $self->file_plugins ) {
         $plugin->init;
+        next unless $plugin->can('init');
         next unless $plugin->can('measure');
         my $metric = $plugin->measure( $self, $file );
         my $metric_name = $self->metric_name($plugin);
@@ -168,6 +169,7 @@ sub measure_sub_metrics {
     my $metrics = {};
     foreach my $plugin ( $self->sub_plugins ) {
         $plugin->init;
+        next unless $plugin->can('init');
         next unless $plugin->can('measure');
         my $metric = $plugin->measure( $self, $sub );
         my $metric_name = $self->metric_name($plugin);
