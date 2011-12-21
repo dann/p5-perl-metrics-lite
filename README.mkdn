@@ -81,6 +81,9 @@ Dann <techmemo{at}gmail.com>
 
 # SEE ALSO
 
+[Perl::Metrics](http://search.cpan.org/perldoc?Perl::Metrics)
+[Perl::Metrics::Simple](http://search.cpan.org/perldoc?Perl::Metrics::Simple)
+
 # LICENSE
 
 This library is free software; you can redistribute it and/or modify

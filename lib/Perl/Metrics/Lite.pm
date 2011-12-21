@@ -195,6 +195,9 @@ Dann E<lt>techmemo{at}gmail.comE<gt>
 
 =head1 SEE ALSO
 
+L<Perl::Metrics>
+L<Perl::Metrics::Simple>
+
 =head1 LICENSE
 
 This library is free software; you can redistribute it and/or modify
