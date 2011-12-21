@@ -47,8 +47,6 @@ sub get_main_stats {
     foreach my $file_name (@ORDER_OF_FILES) {
         my $hash = $test_data->{$file_name};
         $main_stats->{lines}             += $hash->{main_stats}->{lines};
-        $main_stats->{mccabe_complexity} +=
-          $hash->{main_stats}->{mccabe_complexity};
     }
     return $main_stats;
 }
@@ -80,8 +78,8 @@ sub make_test_data {
             lines      => 4,
             main_stats => {
                 lines             => 4,
-                name              => '{code not in named subroutines}',
                 path              => "$test_directory/no_packages_nor_subs",
+                packages          => 0,
             },
             subs     => [],
             packages => [],
@@ -91,8 +89,8 @@ sub make_test_data {
             lines      => 0,
             main_stats => {
                 lines             => 0,
-                name              => '{code not in named subroutines}',
                 path              => "$test_directory/empty_file.pl",
+                packages          => 0,
             },
             subs     => [],
             packages => [],
@@ -102,8 +100,8 @@ sub make_test_data {
             lines      => 12,
             main_stats => {
                 lines             => 12,
-                name              => '{code not in named subroutines}',
                 path              => "$test_directory/package_no_subs.pl",
+                packages          => 1,
             },
             subs => [
 
@@ -115,19 +113,21 @@ sub make_test_data {
             lines      => 8,
             main_stats => {
                 lines             => 5,
-                name              => '{code not in named subroutines}',
                 path              => "$test_directory/subs_no_package.pl",
+                packages          => 0,
             },
             subs => [
                 {
                     name              => 'foo',
                     lines             => 1,
+                    line_number       => 10,
                     mccabe_complexity => 1,
                     path              => "$test_directory/subs_no_package.pl",
                 },
                 {
                     name              => 'bar',
                     lines             => 2,
+                    line_number       => 11,
                     mccabe_complexity => 1,
                     path              => "$test_directory/subs_no_package.pl",
                 }
@@ -139,8 +139,8 @@ sub make_test_data {
             lines      => 29,
             main_stats => {
                 lines             => 6,
-                name              => '{code not in named subroutines}',
                 path => "$test_directory/Perl/Code/Analyze/Test/Module.pm",
+                packages => 2,
             },
             subs => [
                 {
