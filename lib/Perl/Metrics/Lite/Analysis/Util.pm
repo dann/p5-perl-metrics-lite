@@ -1,11 +1,13 @@
 package Perl::Metrics::Lite::Analysis::Util;
+use strict;
+use warnings;
 use English qw(-no_match_vars);
 use Readonly;
 
-Readonly::Scalar my $ALL_NEWLINES_REGEX =>
-    qr/ ( \Q$INPUT_RECORD_SEPARATOR\E ) /sxm;
+Readonly::Scalar my $ALL_NEWLINES_REGEX => ## no critic
+    qr/ ( \Q$INPUT_RECORD_SEPARATOR\E ) /sxm; 
 
-Readonly::Scalar my $LAST_CHARACTER => -1;
+Readonly::Scalar my $LAST_CHARACTER => -1; ## no critic
 
 sub get_node_length {
     my $node = shift;
@@ -83,7 +85,7 @@ __END__
 
 =head1 NAME
 
-Perl::Metrics::Lite::Analysis::Util - 
+Perl::Metrics::Lite::Analysis::Util - Utility class for PPI::Document operation
 
 =head1 STATIC PACKAGE SUBROUTINES
 
