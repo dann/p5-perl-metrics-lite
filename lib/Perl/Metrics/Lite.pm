@@ -120,6 +120,10 @@ Perl::Metrics::Lite - Pluggable Perl Code Metrics System
 =head1 SYNOPSIS
 
   use Perl::Metrics::Lite;
+  my $analzyer   = Perl::Metrics::Lite->new;
+  my $analysis   = $analzyer->analyze_files(@ARGV);
+  my $file_stats = $analysis->file_stats;
+  my $sub_stats = $analysis->sub_stats;
 
 =head1 DESCRIPTION
 
@@ -130,6 +134,11 @@ of one or many Perl files and obtain a few metrics.
 
 B<Perl::Metrics::Lite> is far simpler than L<Perl::Metrics> 
 and more extensible than L<Perl::Metrics::Simple>.
+
+=head1 USAGE
+
+See the F<measureperl> script (included with this distribution)
+for a simple example of usage.
 
 =head1 CLASS METHODS
 
