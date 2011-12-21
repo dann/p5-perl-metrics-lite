@@ -84,7 +84,7 @@ sub analyze_file {
     }
 
     my $metrics = $self->measure_file_metrics($document);
-    $metrics->{path} = $self->{path};
+    $metrics->{path} = $self->path;
 
     return $metrics;
 }

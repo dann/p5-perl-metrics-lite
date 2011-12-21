@@ -15,7 +15,11 @@ my %_SUBS          = ();
 
 sub new {
     my ( $class, $analysis_data ) = @_;
-    if ( !Perl::Metrics::Lite::Analysis::Util::is_ref( $analysis_data, 'ARRAY' ) ) {
+    if (!Perl::Metrics::Lite::Analysis::Util::is_ref(
+            $analysis_data, 'ARRAY'
+        )
+        )
+    {
         confess 'Did not supply an arryref of analysis data.';
     }
     my $self = {};
@@ -52,6 +56,16 @@ sub main_stats {
 sub subs {
     my ($self) = @_;
     return $_SUBS{$self};
+}
+
+sub sub_stats {
+    my $self      = shift;
+    my $sub_stats = {};
+    foreach my $sub (@{ $self->subs || []}) {
+        $sub_stats->{$sub->{path}} ||= [];
+        push @{$sub_stats->{$sub->{path}}}, $sub ;
+    } 
+    return $sub_stats;
 }
 
 sub sub_count {
