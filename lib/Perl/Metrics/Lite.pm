@@ -123,7 +123,51 @@ Perl::Metrics::Lite - Pluggable Perl Code Metrics System
 
 =head1 DESCRIPTION
 
-Perl::Metrics::Lite is the pluggable perl code metrics system.
+B<Perl::Metrics::Lite< is the pluggable perl code metrics system.
+
+B<Perl::Metrics::Lite> provides just enough methods to run static analysis
+of one or many Perl files and obtain a few metrics.
+
+B<Perl::Metrics::Lite> is far simpler than L<Perl::Metrics> 
+and more extensible than L<Perl::Metrics::Simple>.
+
+=head1 CLASS METHODS
+
+=head2 new
+
+Takes no arguments and returns a new L<Perl::Metrics::Lite> object.
+
+=head2 is_perl_file
+
+Takes a path and returns true if the target is a Perl file.
+
+=head1 OBJECT METHODS
+
+=head2 analyze_files( @paths, @refs_to_file_contents )
+
+Takes an array of files and or directory paths, and/or
+SCALAR refs to file contents and returns
+an L<Perl::Metrics::Lite::Analysis> object.
+
+=head2 find_files( @directories_and_files )
+
+Uses I<list_perl_files> to find all the readable Perl files
+and returns a reference to a (possibly empty) list of paths.
+
+=head2 list_perl_files
+
+Takes a list of one or more paths and returns an
+alphabetically sorted list of only the perl files.
+Uses I<is_perl_file> so may throw an exception if a file is unreadable.
+
+=head2 is_perl_file($path)
+
+Takes a path to a file and returns true if the file appears to be a Perl file,
+otherwise returns false.
+
+If the file name does not match any of @Perl::Metrics::Lite::PERL_FILE_SUFFIXES
+then the file is opened for reading and the first line examined for a a Perl
+'shebang' line. An exception is thrown if the file cannot be opened in this case.
 
 =head1 SOURCE AVAILABILITY
 

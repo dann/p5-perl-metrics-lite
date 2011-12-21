@@ -143,7 +143,6 @@ on the code minus all named subroutines.
 
   {
     lines             => 723,
-    mccabe_complexity => 45
   }
 
 =head2 file_stats
@@ -219,7 +218,7 @@ http://rt.cpan.org/NoAuth/Bugs.html?Dist=Perl-Metrics-Lite
 
 =head1 AUTHOR
 
-Dann
+Dann <techmemo {at} gmail.com>
 
 =head1 SEE ALSO
 
