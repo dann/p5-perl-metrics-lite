@@ -47,6 +47,15 @@ sub analyze_files {
     return $analysis;
 }
 
+sub report {
+    my ( $self, $analysis ) = @_;
+    my $report_module = $self->{report_module} || "Text";
+    my $report_class = "Perl::Metrics::Lite::Report::${report_module}";
+    eval "require $report_class";
+    my $reporter = $report_class->new;
+    $reporter->report($analysis);
+}
+
 sub find_files {
     my ( $self, @directories_and_files ) = @_;
     foreach my $path (@directories_and_files) {

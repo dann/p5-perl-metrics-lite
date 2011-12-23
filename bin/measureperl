@@ -1,0 +1,42 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Perl::Metrics::Lite;
+use Pod::Usage;
+
+main();
+exit;
+
+sub main {
+    check_args();
+    report(\@ARGV);
+}
+
+sub check_args {
+    if ( !@ARGV ) {
+        pod2usage( -verbose => 1 );
+    }
+}
+
+sub report {
+    my $files = shift;
+    my $analzyer   = Perl::Metrics::Lite->new;
+    my $analysis   = $analzyer->analyze_files(@$files);
+    $analzyer->report($analysis);
+}
+
+__END__
+
+=head1 NAME
+
+measureperl - count lines, packages, subs and complexity of Perl files.
+
+=head1 SYNOPSIS
+
+B<measureperl> F<FILE_OR_DIRECTORY> [F<FILE_OR_DIRECTORY> ....]
+
+=head1 REQUIRED ARGUMENTS
+
+At least one file or directory path must be supplied.
+
+=cut
