@@ -34,5 +34,6 @@ test_requires(
 );
 
 install_script('bin/measureperl');
+install_script('bin/measureperl-checkstyle');
 auto_include;
 WriteAll;

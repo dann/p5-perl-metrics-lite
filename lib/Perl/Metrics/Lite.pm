@@ -8,6 +8,7 @@ use File::Find qw(find);
 use IO::File;
 use Perl::Metrics::Lite::Analysis;
 use Perl::Metrics::Lite::Analysis::File;
+use Perl::Metrics::Lite::Report::Text;
 use Readonly;
 
 our $VERSION = '0.01';
@@ -22,7 +23,7 @@ sub new {
     my ( $class, %args ) = @_;
     my $self = bless( {}, $class );
     my $report_module
-        = exists $args{report_module} ? $args{report_module} : "Text";
+        = exists $args{report_module} ? $args{report_module} : Perl::Metrics::Lite::Report::Text->new;
     $self->{report_module} = $report_module;
     return $self;
 }
@@ -51,10 +52,7 @@ sub analyze_files {
 sub report {
     my ( $self, $analysis ) = @_;
     my $report_module = $self->{report_module};
-    my $report_class  = "Perl::Metrics::Lite::Report::${report_module}";
-    eval "require $report_class" or die "Can't load $report_class: $@"; ## no critic
-    my $reporter = $report_class->new;
-    $reporter->report($analysis);
+    $report_module->report($analysis);
 }
 
 sub find_files {
