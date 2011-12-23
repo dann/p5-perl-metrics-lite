@@ -1,6 +1,5 @@
 package Perl::Metrics::Lite;
 use strict;
-use warnings;
 
 use Carp qw(cluck confess);
 use English qw(-no_match_vars);
@@ -20,9 +19,11 @@ Readonly::Scalar my $PERL_SHEBANG_REGEX => qr/ \A [#] ! .* perl /sxm;
 Readonly::Scalar my $DOT_FILE_REGEX     => qr/ \A [.] /sxm;
 
 sub new {
-    my ($class) = @_;
-    my $self = {};
-    bless $self, $class;
+    my ( $class, %args ) = @_;
+    my $self = bless( {}, $class );
+    my $report_module
+        = exists $args{report_module} ? $args{report_module} : "Text";
+    $self->{report_module} = $report_module;
     return $self;
 }
 
@@ -49,9 +50,9 @@ sub analyze_files {
 
 sub report {
     my ( $self, $analysis ) = @_;
-    my $report_module = $self->{report_module} || "Text";
-    my $report_class = "Perl::Metrics::Lite::Report::${report_module}";
-    eval "require $report_class";
+    my $report_module = $self->{report_module};
+    my $report_class  = "Perl::Metrics::Lite::Report::${report_module}";
+    eval "require $report_class" or die "Can't load $report_class: $@"; ## no critic
     my $reporter = $report_class->new;
     $reporter->report($analysis);
 }
