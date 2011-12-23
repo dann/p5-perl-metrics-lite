@@ -17,8 +17,6 @@ use Module::Pluggable
     search_path => 'Perl::Metrics::Lite::Analysis::Sub::Plugin',
     sub_name    => 'sub_plugins';
 
-our $VERSION = '0.01';
-
 # Private instance variables:
 my %_PATH       = ();
 my %_MAIN_STATS = ();
@@ -40,23 +38,25 @@ sub _init {
 
     my $path = $self->path();
 
-    my $document = Perl::Metrics::Lite::Analysis::DocumentFactory->create_normalized_document($path);
+    my $document = Perl::Metrics::Lite::Analysis::DocumentFactory
+        ->create_normalized_document($path);
     if ( !defined $document ) {
         cluck "Could not make a PPI document from '$path'";
         return;
     }
 
-    my $packages = Perl::Metrics::Lite::Analysis::Util::get_packages($document);
+    my $packages
+        = Perl::Metrics::Lite::Analysis::Util::get_packages($document);
 
     my @sub_analysis = ();
     my $sub_elements = $document->find('PPI::Statement::Sub');
     @sub_analysis = @{ $self->analyze_subs($sub_elements) };
 
-    $_MAIN_STATS{$self}
-        = $self->analyze_file( $document, $sub_elements, \@sub_analysis );
-    $_SUBS{$self}     = \@sub_analysis;
-    $_PACKAGES{$self} = $packages;
-    $_LINES{$self}    = Perl::Metrics::Lite::Analysis::Util::get_node_length($document);
+    $_MAIN_STATS{$self} = $self->analyze_file($document);
+    $_SUBS{$self}       = \@sub_analysis;
+    $_PACKAGES{$self}   = $packages;
+    $_LINES{$self}
+        = Perl::Metrics::Lite::Analysis::Util::get_node_length($document);
 
     return $self;
 }
@@ -74,10 +74,7 @@ sub all_counts {
 }
 
 sub analyze_file {
-    my $self         = shift;
-    my $document     = shift;
-    my $sub_elements = shift;
-    my $sub_analysis = shift;
+    my ($self, $document) = @_;
 
     if ( !$document->isa('PPI::Document') ) {
         Carp::confess('Did not supply a PPI::Document');
@@ -85,7 +82,6 @@ sub analyze_file {
 
     my $metrics = $self->measure_file_metrics($document);
     $metrics->{path} = $self->path;
-
     return $metrics;
 }
 
@@ -153,7 +149,9 @@ sub analyze_subs {
     my $found_subs = shift;
 
     return []
-        if ( !Perl::Metrics::Lite::Analysis::Util::is_ref( $found_subs, 'ARRAY' ) );
+        if (
+        !Perl::Metrics::Lite::Analysis::Util::is_ref( $found_subs, 'ARRAY' )
+        );
 
     my @subs = ();
     foreach my $sub ( @{$found_subs} ) {
