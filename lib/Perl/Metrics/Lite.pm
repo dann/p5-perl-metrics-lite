@@ -2,7 +2,6 @@ package Perl::Metrics::Lite;
 use strict;
 use warnings;
 
-use Carp qw(cluck confess);
 use Perl::Metrics::Lite::FileFinder;
 use Perl::Metrics::Lite::Report::Text;
 use Perl::Metrics::Lite::Analysis;
@@ -79,18 +78,14 @@ and more extensible than L<Perl::Metrics::Simple>.
 
 =head1 USAGE
 
-See the F<measureperl> script (included with this distribution)
-for a simple example of usage.
+See the F<measureperl> and F<measureperl-checkstyle>  script 
+(included with this distribution) for a simple example of usage.
 
 =head1 CLASS METHODS
 
 =head2 new
 
 Takes no arguments and returns a new L<Perl::Metrics::Lite> object.
-
-=head2 is_perl_file
-
-Takes a path and returns true if the target is a Perl file.
 
 =head1 OBJECT METHODS
 
