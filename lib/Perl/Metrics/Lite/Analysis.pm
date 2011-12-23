@@ -177,6 +177,11 @@ is for all the code in the file B<outside of> any named subroutines.
         ...
    ]
 
+=head2 sub_stats
+
+Returns an hashref of subroutine metrics, each entry is for one analyzed file.
+
+
 =head2 packages
 
 Arrayref of unique packages found in code.
@@ -194,6 +199,7 @@ Each hashref has the structure:
 
     {
          'lines' => 19,
+         'line_number' => 5,
          'mccabe_complexity' => 6,
          'name' => 'databaseRecords',
          'path' => '../path/to/File.pm',

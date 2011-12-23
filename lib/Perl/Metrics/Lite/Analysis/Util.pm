@@ -94,6 +94,19 @@ Call these with a fully-qualified package name, e.g.
 
   Perl::Metrics::Lite::Analysis::Util::is_ref($thing,'ARRAY')
 
+=head2 get_packages
+
+Arrayref of unique PPI::Statement::Package found in the PPI document.
+
+=head2 get_node_length
+
+Takes a B<PPI> node and returns a count of the newlines it
+contains. B<PPI> normalizes line endings to newlines so
+CR/LF, CR and LF all come out the same. The line counts reported by
+the various methods in this class all B<exclude> blank lines,
+comment lines and pod
+(the B<PPI> document is pruned before counting.)
+
 =head2 is_ref
 
 Takes a I<thing> and a I<type>. Returns true is I<thing> is a reference
