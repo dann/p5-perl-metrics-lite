@@ -52,7 +52,7 @@ sub report_sub_stats {
     $self->_print_sub_stats_report_header;
     foreach my $file_path ( keys %{$sub_stats} ) {
         my $sub_metrics = $sub_stats->{$file_path};
-        $self->_report_sub_metrics($file_path, $sub_metrics); 
+        $self->_report_sub_metrics( $file_path, $sub_metrics );
     }
 }
 
@@ -64,18 +64,17 @@ sub _print_sub_stats_report_header {
 
 sub _report_sub_metrics {
     my ( $self, $path, $sub_metrics ) = @_;
-    my @rows        = ();
+    my @rows = ();
     foreach my $sub_metric ( @{$sub_metrics} ) {
         push @rows,
             {
-            name              => $sub_metric->{name},
+            method            => $sub_metric->{name},
             loc               => $sub_metric->{lines},
-            line_number       => $sub_metric->{line_number},
             mccabe_complexity => $sub_metric->{mccabe_complexity}
             };
     }
     if (@rows) {
-        my $keys = [ "name", "loc", "line_number", "mccabe_complexity" ];
+        my $keys = [ "method", "loc", "mccabe_complexity" ];
         my $table = $self->_create_table( $keys, \@rows );
 
         print "\nPath: ${path}\n";
