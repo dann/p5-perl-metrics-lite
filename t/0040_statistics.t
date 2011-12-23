@@ -36,10 +36,11 @@ sub test_main_stats {
         if ( !$expected_count ) {
             Test::More::BAIL_OUT(
                 "Could not get expected value from '$path_to_test_file'");
-        }    
+        }
         my $analysis = $counter->analyze_files($path_to_test_file);
         Test::More::is( $analysis->main_stats()->{'lines'},
-            $expected_count, "main_stats() number of lines for '$test_file'" );
+            $expected_count,
+            "main_stats() number of lines for '$test_file'" );
     }
 
     return 1;

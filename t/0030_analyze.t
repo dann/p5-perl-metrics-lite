@@ -57,6 +57,7 @@ subtest "test_analyze_one_file" => sub {
     my $has_subs_expected_result = $test_data->{'subs_no_package.pl'};
     my $has_subs_analysis        = Perl::Metrics::Lite::Analysis::File->new(
         path => $has_subs_expected_result->{'path'} );
+
     #is_deeply( $has_subs_analysis->all_counts,
     #    $has_subs_expected_result, 'analyze_one_file() subs_no_package.pl' );
 
@@ -85,10 +86,11 @@ subtest "test_analyze_files" => sub {
         $analysis_of_one_file->data->[0],
         'Perl::Metrics::Lite::Analysis::File'
     );
-#    is_deeply( $analysis_of_one_file->data->[0]->all_counts,
-#       $expected_from_one_file,
-#        'analyze_files() when given a single file path.' )
-#        || diag Dumper $analysis_of_one_file->data;
+
+    #    is_deeply( $analysis_of_one_file->data->[0]->all_counts,
+    #       $expected_from_one_file,
+    #        'analyze_files() when given a single file path.' )
+    #        || diag Dumper $analysis_of_one_file->data;
 
     my $analysis = $analyzer->analyze_files($TEST_DIRECTORY);
     my @expected = (
@@ -103,10 +105,10 @@ subtest "test_analyze_files" => sub {
         'analayze_files() gets right number of files.'
     );
 
-#    for my $i ( scalar @expected ) {
-#        is_deeply( $analysis->data->[$i],
-#            $expected[$i], 'Got expected results for test file.' );
-#    }
+    #    for my $i ( scalar @expected ) {
+    #        is_deeply( $analysis->data->[$i],
+    #            $expected[$i], 'Got expected results for test file.' );
+    #    }
     done_testing;
 };
 
@@ -147,6 +149,7 @@ subtest "test_analysis" => sub {
     );
 
     my $expected_file_stats = $test_data_object->get_file_stats;
+
     #is_deeply( $analysis->file_stats, $expected_file_stats,
     #    'analysis->file_stats returns expected data.' );
 

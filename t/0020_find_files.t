@@ -14,14 +14,15 @@ sub set_up {
 }
 
 subtest "is_in_skip_list" => sub {
-    my $analyzer = set_up();
+    my $analyzer      = set_up();
     my @paths_to_skip = qw(
         /foo/bar/.svn/hello.pl
         /foo/bar/_darcs/hello.pl
         /foo/bar/CVS/hello.pl
     );
-    foreach my $path_to_skip ( @paths_to_skip ) {
-        ok($analyzer->should_be_skipped($path_to_skip), "is_in_skip_list($path_to_skip)");
+    foreach my $path_to_skip (@paths_to_skip) {
+        ok( $analyzer->should_be_skipped($path_to_skip),
+            "is_in_skip_list($path_to_skip)" );
     }
     done_testing;
 };
@@ -38,12 +39,11 @@ subtest "find_files" => sub {
         "$TEST_DIRECTORY/no_packages_nor_subs",
         "$TEST_DIRECTORY/package_no_subs.pl",
         "$TEST_DIRECTORY/subs_no_package.pl",
-    ];    
+    ];
     my $found_files = $analyzer->find_files($TEST_DIRECTORY);
     is_deeply( $found_files, $expected_list,
         'find_files() find expected files' );
     done_testing;
 };
-
 
 done_testing;
