@@ -7,7 +7,7 @@ use Perl::Metrics::Lite;
 use Perl::Metrics::Lite::Report::CheckStyle;
 use Pod::Usage;
 
-our $VERSION = "0.02";
+our $VERSION = "0.03";
 Getopt::Long::GetOptions(
     'h|help'                        => \my $help,
     'verbose'                       => \my $verbose,
@@ -21,12 +21,10 @@ main();
 exit;
 
 sub main {
-    report( \@ARGV );
+    report();
 }
 
 sub report {
-    my $files = shift;
-
     my $reporter = Perl::Metrics::Lite::Report::CheckStyle->new(
         max_sub_lines             => $max_sub_lines             || 60,
         max_sub_mccabe_complexity => $max_sub_mccabe_complexity || 10

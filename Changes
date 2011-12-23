@@ -1,5 +1,8 @@
 Revision history for Perl extension Perl::Metrics::Lite
 
+0.03 Mon Dec 23 23:20:00 2011
+	* Changed default threshold for sloc 
+
 0.02 Mon Dec 23 22:45:12 2011
 	* Added POD for some classes. No functional changes.
 
