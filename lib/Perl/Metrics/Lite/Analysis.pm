@@ -119,7 +119,7 @@ object.
 
 =head1 VERSION
 
-This is VERSION 0.1
+This is VERSION 0.01
 
 =head1 DESCRIPTION
 
