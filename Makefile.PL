@@ -21,6 +21,7 @@ requires(
     'File::Basename'    => 0,
     'File::Find'        => 1.01,
     'File::Spec'        => 0,
+    'Getopt::Long'      => 0,
     'IO::File'          => 1.14,
     'Readonly'          => 1.03,
     'PPI'               => 1.113,
