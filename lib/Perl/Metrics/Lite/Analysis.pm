@@ -5,7 +5,7 @@ use warnings;
 use Carp qw(confess);
 use Perl::Metrics::Lite::Analysis::Util;
 
-our $VERSION = '0.01';
+our $VERSION = '0.05';
 
 my %_ANALYSIS_DATA = ();
 my %_FILES         = ();

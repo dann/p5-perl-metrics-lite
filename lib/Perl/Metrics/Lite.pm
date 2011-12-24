@@ -7,7 +7,7 @@ use Perl::Metrics::Lite::Report::Text;
 use Perl::Metrics::Lite::Analysis;
 use Perl::Metrics::Lite::Analysis::File;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 sub new {
     my ( $class, %args ) = @_;
