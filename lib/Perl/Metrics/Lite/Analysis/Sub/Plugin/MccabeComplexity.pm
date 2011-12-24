@@ -79,13 +79,24 @@ sub measure {
     if ($elem) {
         $complexity_count++;
     }
+    $complexity_count += _countup_logic_keywords($elem); 
+    $complexity_count += _counup_logic_operators($elem);
 
-    # Count up all the logic keywords, weed out hash keys
+    return $complexity_count;
+}
+
+# Count up all the logic keywords, weed out hash keys
+sub _countup_logic_keywords {
+    my $elem = shift;
     my $keywords_ref = $elem->find('PPI::Token::Word') || [];
     my @filtered = grep { !is_hash_key($_) } @{$keywords_ref};
-    $complexity_count += grep { exists $LOGIC_KEYWORDS{$_} } @filtered;
+    my $complexity_count = grep { exists $LOGIC_KEYWORDS{$_} } @filtered;
+    return $complexity_count;
+}
 
-    # Count up all the logic operators
+sub _counup_logic_operators {
+    my $elem = shift;
+    my $complexity_count = 0;
     my $operators_ref = $elem->find('PPI::Token::Operator');
     if ($operators_ref) {
         $complexity_count

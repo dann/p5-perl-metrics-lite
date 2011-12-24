@@ -2,7 +2,7 @@ package Perl::Metrics::Lite::Report::CheckStyle;
 use strict;
 use warnings;
 
-my $DEFAULT_MAX_SUB_LINES         = 100;
+my $DEFAULT_MAX_SUB_LINES         = 60;
 my $DEFAULT_MAX_MCCABE_COMPLEXITY = 10;
 
 sub new {

@@ -1,5 +1,8 @@
 Revision history for Perl extension Perl::Metrics::Lite
 
+0.04 Mon Dec 24 13:44:00 2011
+	* Added threshold option to measureperl script 
+
 0.03 Mon Dec 23 23:20:00 2011
 	* Changed default threshold for sloc 
 

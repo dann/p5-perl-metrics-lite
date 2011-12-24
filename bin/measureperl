@@ -1,27 +1,40 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
+use Getopt::Long ();
 use Perl::Metrics::Lite;
 use Pod::Usage;
+use Perl::Metrics::Lite::Report::Text;
+
+our $VERSION = "0.04";
+
+my $show_only_error = 0;
+Getopt::Long::GetOptions(
+    'h|help'                        => \my $help,
+    'verbose'                       => \my $verbose,
+    'l|max_sub_lines=i'             => \my $max_sub_lines,
+    'c|max_sub_mccabe_complexity=i' => \my $max_sub_mccabe_complexity,
+    'e|show_only_error'             => \$show_only_error,
+) or pod2usage();
+
+pod2usage() if $help;
 
 main();
 exit;
 
 sub main {
-    check_args();
-    report(\@ARGV);
-}
-
-sub check_args {
-    if ( !@ARGV ) {
-        pod2usage( -verbose => 1 );
-    }
+    report( \@ARGV );
 }
 
 sub report {
-    my $files = shift;
-    my $analzyer   = Perl::Metrics::Lite->new;
-    my $analysis   = $analzyer->analyze_files(@$files);
+    my $files    = shift;
+    my $reporter = Perl::Metrics::Lite::Report::Text->new(
+        max_sub_lines             => $max_sub_lines             || 60,
+        max_sub_mccabe_complexity => $max_sub_mccabe_complexity || 10,
+        show_only_error           => $show_only_error
+    );
+    my $analzyer = Perl::Metrics::Lite->new( report_module => $reporter );
+    my $analysis = $analzyer->analyze_files(@$files);
     $analzyer->report($analysis);
 }
 
@@ -33,7 +46,15 @@ measureperl - count lines, packages, subs and complexity of Perl files.
 
 =head1 SYNOPSIS
 
-B<measureperl> F<FILE_OR_DIRECTORY> [F<FILE_OR_DIRECTORY> ....]
+Show all metrics
+  B<measureperl> F<FILE_OR_DIRECTORY> [F<FILE_OR_DIRECTORY> ....]
+  ex) measureperl lib
+
+Show only errors in subroutines
+  measureperl -e lib
+
+Show only method which sloc is 50 and mccabe's complexity is over 10
+  measureperl -e -l 50 -c 10 lib 
 
 =head1 REQUIRED ARGUMENTS
 

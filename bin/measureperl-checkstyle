@@ -2,12 +2,13 @@
 use strict;
 use warnings;
 
-use Getopt::Long;
+use Getopt::Long ();
 use Perl::Metrics::Lite;
 use Perl::Metrics::Lite::Report::CheckStyle;
 use Pod::Usage;
 
-our $VERSION = "0.03";
+our $VERSION = "0.04";
+
 Getopt::Long::GetOptions(
     'h|help'                        => \my $help,
     'verbose'                       => \my $verbose,
