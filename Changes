@@ -1,6 +1,6 @@
 Revision history for Perl extension Perl::Metrics::Lite
 
-0.06 Mon Dec 27 20:27:00 2011
+0.061 Mon Dec 27 20:27:00 2011
 	* Use auto_include_deps 
     * No functional change
 
