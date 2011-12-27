@@ -13,6 +13,7 @@ sub auto_set_repository { }
 use inc::Module::Install;
 
 name 'Perl-Metrics-Lite';
+perl_version  '5.005';
 all_from 'lib/Perl/Metrics/Lite.pm';
 readme_markdown_from 'lib/Perl/Metrics/Lite.pm';
 
@@ -36,5 +37,5 @@ test_requires(
 
 install_script('bin/measureperl');
 install_script('bin/measureperl-checkstyle');
-auto_include;
+auto_include_deps;
 WriteAll;
