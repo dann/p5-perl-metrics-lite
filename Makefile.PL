@@ -25,7 +25,7 @@ requires(
     'Getopt::Long'      => 0,
     'IO::File'          => 1.14,
     'Readonly'          => 1.03,
-    'PPI'               => 1.113,
+    'PPI'               => 1.205,
     'Pod::Usage'        => 0,
     'Module::Pluggable' => 0,
     'Text::ASCIITable'  => 0
