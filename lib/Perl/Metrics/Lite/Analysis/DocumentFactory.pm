@@ -25,7 +25,6 @@ sub create_normalized_document {
         }
         $document = _create_ppi_document($path);
     }
-    $document = _make_pruned_document($document);
 
     $document;
 }
