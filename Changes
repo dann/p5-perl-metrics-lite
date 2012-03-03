@@ -1,6 +1,9 @@
 Revision history for Perl extension Perl::Metrics::Lite
 
-0.07 Sat Jan 28 3:55:00 2011
+0.08 Sat Mar 14:14:00 2012
+	* Get the line number correctly (kzys++)
+
+0.07 Sat Jan 28 3:55:00 2012
 	* Requires PPI 1.205 (kzys++)
 
 0.061 Mon Dec 27 20:27:00 2011
