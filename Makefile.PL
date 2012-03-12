@@ -1,6 +1,6 @@
-sub readme_markdown_from {
+sub readme_pod_from {
     warn
-        "You need to install Module::Install::ReadmeMarkdownFromPod  to generate README";
+        "You need to install Module::Install::ReadmePodFromPod to generate README.pod";
 }
 
 sub author_requires {
@@ -15,7 +15,7 @@ use inc::Module::Install;
 name 'Perl-Metrics-Lite';
 perl_version  '5.005';
 all_from 'lib/Perl/Metrics/Lite.pm';
-readme_markdown_from 'lib/Perl/Metrics/Lite.pm';
+readme_pod_from 'lib/Perl/Metrics/Lite.pm';
 
 requires(
     'Carp'              => 0,
