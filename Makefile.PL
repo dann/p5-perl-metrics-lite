@@ -35,6 +35,8 @@ test_requires(
     'Test::LoadAllModules' => 0.021
 );
 
+repository 'https://github.com/dann/p5-perl-metrics-lite';
+
 install_script('bin/measureperl');
 install_script('bin/measureperl-checkstyle');
 auto_include_deps;
