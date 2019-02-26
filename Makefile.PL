@@ -27,7 +27,7 @@ requires(
     'Readonly'          => 1.03,
     'PPI'               => 1.205,
     'Pod::Usage'        => 0,
-    'Module::Pluggable' => 0,
+    'Module::Pluggable' => 5.2,
     'Text::ASCIITable'  => 0
 );
 test_requires(
