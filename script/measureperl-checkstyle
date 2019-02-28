@@ -7,7 +7,7 @@ use Perl::Metrics::Lite;
 use Perl::Metrics::Lite::Report::CheckStyle;
 use Pod::Usage;
 
-our $VERSION = "0.05";
+our $VERSION = "0.092";
 
 Getopt::Long::GetOptions(
     'h|help'                        => \my $help,

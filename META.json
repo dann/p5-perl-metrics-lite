@@ -75,10 +75,10 @@
          "web" : "https://github.com/dann/p5-perl-metrics-lite"
       }
    },
-   "version" : "0.091",
+   "version" : "0.092",
    "x_contributors" : [
-      "Dann <techmemo@gmail.com>",
-      "Kato Kazuyoshi <kato.kazuyoshi@gmail.com>"
+      "Kato Kazuyoshi <kato.kazuyoshi@gmail.com>",
+      "dann <techmemo@gmail.com>"
    ],
    "x_serialization_backend" : "JSON::PP version 2.27400_02",
    "x_static_install" : 1

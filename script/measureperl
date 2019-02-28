@@ -6,7 +6,7 @@ use Perl::Metrics::Lite;
 use Pod::Usage;
 use Perl::Metrics::Lite::Report::Text;
 
-our $VERSION = "0.05";
+our $VERSION = "0.092";
 
 my $show_only_error = 0;
 Getopt::Long::GetOptions(
